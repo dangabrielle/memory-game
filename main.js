@@ -26,14 +26,12 @@ const frontCard = {
 
 /*----- state variables -----*/
 let livesRemaining = 10;
-let winner;
 let firstClick;
 let secondClick;
 let firstCard;
 let secondCard;
 let clickCount;
-let wrongGuess;
-let getWinner;
+let matchTracker;
 
 /*----- cached elements  -----*/
 const playAgainBtn = document.querySelector("button");
@@ -53,7 +51,8 @@ function initialize() {
   randomizeCards(cardLookup);
   clickCount = 1;
   livesRemaining = 10;
-  wrongGuess = false;
+  matchTracker = 0;
+  playAgainBtn.disabled = true;
   render();
 }
 
@@ -88,7 +87,6 @@ function render() {
           cards.classList.toggle("flipCard");
         }, 2000);
         firstCard = e.currentTarget;
-        console.log(firstCard);
         clickCount = 2;
       } else if (clickCount === 2) {
         cards.classList.toggle("flipCard");
@@ -97,18 +95,27 @@ function render() {
           cards.classList.toggle("flipCard");
         }, 2000);
         secondCard = e.currentTarget;
+        console.log(secondClick);
         if (firstClick == secondClick) {
           secondCard.classList.toggle("unflipCard");
           firstCard.classList.toggle("unflipCard");
           secondCard.classList.toggle("preventClick");
           firstCard.classList.toggle("preventClick");
 
+          trackMatch();
+          if (matchTracker == 8) {
+            messageEl.innerText = "You're a genius!";
+            playAgainBtn.disabled = false;
+          }
+
+          console.log(matchTracker);
           console.log("matched");
           clickCount = 1;
         } else {
           clickCount = 1;
           console.log("not matched");
           minusOne();
+          console.log(livesRemaining);
         }
       }
     }
@@ -120,10 +127,18 @@ function randomizeCards(arr) {
 }
 // found from https://www.webmound.com/shuffle-javascript-array/
 function minusOne() {
-  if (livesRemaining >= 1) {
+  if (livesRemaining >= 2) {
     livesRemaining--;
     livesCount.innerText = livesRemaining;
   } else {
     messageEl.innerText = "Try again next time";
+    playAgainBtn.disabled = false;
+  }
+}
+
+function trackMatch() {
+  if (matchTracker >= 0 && matchTracker < 8) {
+    matchTracker++;
+    return matchTracker;
   }
 }
