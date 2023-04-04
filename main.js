@@ -27,6 +27,10 @@ const frontCard = {
 /*----- state variables -----*/
 let livesRemaining = 10;
 let winner;
+let firstClick;
+let secondClick;
+let clickCount;
+let wrongGuess;
 
 /*----- cached elements  -----*/
 const playAgainBtn = document.querySelector("button");
@@ -43,7 +47,12 @@ initialize();
 
 function initialize() {
   randomizeCards(cardLookup);
+  clickCount = 1;
+  wrongGuess = false;
+  render();
+}
 
+function render() {
   cardLookup.forEach((card) => {
     const cards = document.createElement("div");
     const front = document.createElement("img");
@@ -52,16 +61,43 @@ function initialize() {
     cards.appendChild(front);
     cards.appendChild(back);
     front.setAttribute("src", card.imgsrc);
+    back.setAttribute("src", frontCard.imgsrc);
+    back.setAttribute("name", card.name);
     back.setAttribute("class", "back");
     back.setAttribute("height", "150px");
     front.setAttribute("height", "150px");
-    back.setAttribute("src", frontCard.imgsrc);
     front.setAttribute("class", "front");
     cards.setAttribute("class", "cards");
 
+    // flip cards
     cards.addEventListener("click", handleClick);
     function handleClick(e) {
-      cards.classList.toggle("flipCard");
+      console.log(clickCount);
+
+      if (clickCount === 1) {
+        cards.classList.toggle("flipCard");
+        firstClick = e.target.getAttribute("name");
+        console.log(firstClick);
+        clickCount = 2;
+      } else if (clickCount === 2) {
+        cards.classList.toggle("flipCard");
+        secondClick = e.target.getAttribute("name");
+        console.log(secondClick);
+        if (firstClick == secondClick) {
+          console.log("matched");
+          clickCount = 1;
+        } else {
+          clickCount = 1;
+          console.log("not matched");
+        }
+      }
+      // } else {
+      //   wrongGuess = true;
+      //   setTimeout(() => {
+      //     cards.classList.toggle("flipCard");
+      //     clickCount = 1;
+      //   }, 2000);
+      // }
     }
   });
 }
