@@ -29,12 +29,16 @@ let livesRemaining = 10;
 let winner;
 let firstClick;
 let secondClick;
+let firstCard;
+let secondCard;
 let clickCount;
 let wrongGuess;
+let getWinner;
 
 /*----- cached elements  -----*/
 const playAgainBtn = document.querySelector("button");
 const boardMap = document.querySelector("section");
+const messageEl = document.querySelector("h2");
 
 const livesCount = document.querySelector("span");
 livesCount.innerText = livesRemaining;
@@ -48,6 +52,7 @@ initialize();
 function initialize() {
   randomizeCards(cardLookup);
   clickCount = 1;
+  livesRemaining = 10;
   wrongGuess = false;
   render();
 }
@@ -73,31 +78,39 @@ function render() {
     cards.addEventListener("click", handleClick);
     function handleClick(e) {
       console.log(clickCount);
+      console.log(e.target.tagName);
 
       if (clickCount === 1) {
         cards.classList.toggle("flipCard");
         firstClick = e.target.getAttribute("name");
         console.log(firstClick);
+        setTimeout(() => {
+          cards.classList.toggle("flipCard");
+        }, 2000);
+        firstCard = e.currentTarget;
+        console.log(firstCard);
         clickCount = 2;
       } else if (clickCount === 2) {
         cards.classList.toggle("flipCard");
         secondClick = e.target.getAttribute("name");
-        console.log(secondClick);
+        setTimeout(() => {
+          cards.classList.toggle("flipCard");
+        }, 2000);
+        secondCard = e.currentTarget;
         if (firstClick == secondClick) {
+          secondCard.classList.toggle("unflipCard");
+          firstCard.classList.toggle("unflipCard");
+          secondCard.classList.toggle("preventClick");
+          firstCard.classList.toggle("preventClick");
+
           console.log("matched");
           clickCount = 1;
         } else {
           clickCount = 1;
           console.log("not matched");
+          minusOne();
         }
       }
-      // } else {
-      //   wrongGuess = true;
-      //   setTimeout(() => {
-      //     cards.classList.toggle("flipCard");
-      //     clickCount = 1;
-      //   }, 2000);
-      // }
     }
   });
 }
@@ -106,3 +119,11 @@ function randomizeCards(arr) {
   return arr.sort(() => 0.5 - Math.random());
 }
 // found from https://www.webmound.com/shuffle-javascript-array/
+function minusOne() {
+  if (livesRemaining >= 1) {
+    livesRemaining--;
+    livesCount.innerText = livesRemaining;
+  } else {
+    messageEl.innerText = "Try again next time";
+  }
+}
