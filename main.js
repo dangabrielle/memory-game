@@ -36,23 +36,23 @@ let matchTracker;
 /*----- cached elements  -----*/
 const playAgainBtn = document.querySelector("button");
 const boardMap = document.querySelector("section");
-const messageEl = document.querySelector("h2");
-
+const messageEl = document.querySelector(".try-again");
 const livesCount = document.querySelector("span");
-livesCount.innerText = livesRemaining;
-
-initialize();
 
 /*----- event listeners -----*/
-
+playAgainBtn.addEventListener("click", initialize);
 /*----- functions -----*/
+initialize();
 
 function initialize() {
+  boardMap.innerHTML = "";
+  messageEl.innerText = "";
   randomizeCards(cardLookup);
   clickCount = 1;
   livesRemaining = 10;
   matchTracker = 0;
   playAgainBtn.disabled = true;
+  livesCount.innerText = livesRemaining;
   render();
 }
 
@@ -78,6 +78,10 @@ function render() {
     function handleClick(e) {
       console.log(clickCount);
       console.log(e.target.tagName);
+
+      if (livesRemaining === 0 || matchTracker == 8) {
+        return;
+      }
 
       if (clickCount === 1) {
         cards.classList.toggle("flipCard");
@@ -127,13 +131,16 @@ function randomizeCards(arr) {
 }
 // found from https://www.webmound.com/shuffle-javascript-array/
 function minusOne() {
-  if (livesRemaining >= 2) {
+  if (livesRemaining >= 1) {
     livesRemaining--;
     livesCount.innerText = livesRemaining;
-  } else {
-    messageEl.innerText = "Try again next time";
-    playAgainBtn.disabled = false;
   }
+  if (livesRemaining === 0) {
+    playAgainBtn.disabled = false;
+    messageEl.innerText = "Try again next time";
+    // boardMap.classList.toggle("preventClick");
+  }
+  return;
 }
 
 function trackMatch() {

@@ -22,6 +22,8 @@ section {
 
 .cards {
   position: relative;
+  height: 150px;
+  width: 105.39px;
   transform-style: preserve-3d;
   transition: all 2s ease;
   /* transform: rotateY(180deg); */
@@ -37,4 +39,16 @@ section {
 
 .flipCard {
   transform: rotateY(180deg);
+}
+
+.unflipCard {
+  transform: rotateY(180deg);
+}
+
+.preventClick {
+  pointer-events: none;
+}
+
+.allowClick {
+  pointer-events: all;
 }
