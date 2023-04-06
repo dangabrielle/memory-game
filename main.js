@@ -1,27 +1,27 @@
 /*----- constants -----*/
 const cardLookup = [
-  { imgsrc: "./images/spades_6.svg", name: "spade6" },
-  { imgsrc: "./images/spades_7.svg", name: "spade7" },
-  { imgsrc: "./images/spades_8.svg", name: "spade8" },
-  { imgsrc: "./images/spades_9.svg", name: "spade9" },
-  { imgsrc: "./images/spades_ace.svg", name: "ace" },
-  { imgsrc: "./images/spades_jack.svg", name: "jack" },
-  { imgsrc: "./images/spades_king.svg", name: "king" },
-  { imgsrc: "./images/spades_queen.svg", name: "queen" },
+  { imgsrc: "./images/art.webp", name: "art" },
+  { imgsrc: "./images/beans1.jpg", name: "beans1" },
+  { imgsrc: "./images/coffee_beans.jpg", name: "beans2" },
+  { imgsrc: "./images/cup.jpg", name: "cup" },
+  { imgsrc: "./images/filter.jpg", name: "filter" },
+  { imgsrc: "./images/ground_coffee.jpg", name: "ground_coffee" },
+  { imgsrc: "./images/hot_coffee.webp", name: "hot_coffee" },
+  { imgsrc: "./images/milk.webp", name: "milk" },
 
-  { imgsrc: "./images/spades_6.svg", name: "spade6" },
-  { imgsrc: "./images/spades_7.svg", name: "spade7" },
-  { imgsrc: "./images/spades_8.svg", name: "spade8" },
-  { imgsrc: "./images/spades_9.svg", name: "spade9" },
-  { imgsrc: "./images/spades_ace.svg", name: "ace" },
-  { imgsrc: "./images/spades_jack.svg", name: "jack" },
-  { imgsrc: "./images/spades_king.svg", name: "king" },
-  { imgsrc: "./images/spades_queen.svg", name: "queen" },
+  { imgsrc: "./images/art.webp", name: "art" },
+  { imgsrc: "./images/beans1.jpg", name: "beans1" },
+  { imgsrc: "./images/coffee_beans.jpg", name: "beans2" },
+  { imgsrc: "./images/cup.jpg", name: "cup" },
+  { imgsrc: "./images/filter.jpg", name: "filter" },
+  { imgsrc: "./images/ground_coffee.jpg", name: "ground_coffee" },
+  { imgsrc: "./images/hot_coffee.webp", name: "hot_coffee" },
+  { imgsrc: "./images/milk.webp", name: "milk" },
 ];
 
 const frontCard = {
-  imgsrc: "./images/frog.svg",
-  name: "frog front",
+  imgsrc: "./images/coffeegif.gif",
+  name: "coffee_gif",
 };
 
 /*----- state variables -----*/
@@ -32,15 +32,27 @@ let firstCard;
 let secondCard;
 let clickCount;
 let matchTracker;
+let sound;
 
 /*----- cached elements  -----*/
 const playAgainBtn = document.querySelector("button");
 const boardMap = document.querySelector("section");
 const messageEl = document.querySelector(".try-again");
 const livesCount = document.querySelector("span");
-
+const startBtn = document.querySelector("#start");
 /*----- event listeners -----*/
 playAgainBtn.addEventListener("click", initialize);
+window.addEventListener("load", function () {
+  document.querySelector(".start-popup").style.display = "block";
+  playAgainBtn.style.visibility = "hidden";
+  boardMap.classList.toggle("preventClick");
+});
+startBtn.addEventListener("click", function () {
+  document.querySelector(".start-popup").style.display = "none";
+  playAgainBtn.style.visibility = "visible";
+  boardMap.classList.toggle("preventClick");
+  sound.play();
+});
 /*----- functions -----*/
 initialize();
 
@@ -48,6 +60,8 @@ function initialize() {
   boardMap.innerHTML = "";
   messageEl.innerText = "";
   randomizeCards(cardLookup);
+  sound = new Audio("./images/correctsound.mp3");
+  sound.play();
   clickCount = 1;
   livesRemaining = 10;
   matchTracker = 0;
@@ -72,6 +86,11 @@ function render() {
     front.setAttribute("height", "150px");
     front.setAttribute("class", "front");
     cards.setAttribute("class", "cards");
+    // sound.play();
+    cards.classList.toggle("flipCard");
+    setTimeout(() => {
+      cards.classList.toggle("flipCard");
+    }, 20);
 
     // flip cards
     cards.addEventListener("click", handleClick);
@@ -138,7 +157,16 @@ function minusOne() {
   if (livesRemaining === 0) {
     playAgainBtn.disabled = false;
     messageEl.innerText = "Try again next time";
+
+    // document.querySelector(".start-popup").style.display = "block";
+    // playAgainBtn.style.visibility = "hidden";
     // boardMap.classList.toggle("preventClick");
+
+    // startBtn.addEventListener("click", function () {
+    //   document.querySelector(".start-popup").style.display = "none";
+    //   playAgainBtn.style.visibility = "visible";
+    //   boardMap.classList.toggle("preventClick");
+    // });
   }
   return;
 }
