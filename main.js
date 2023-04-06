@@ -46,15 +46,12 @@ const startBtn = document.querySelector("#start");
 
 window.addEventListener("load", function () {
   document.querySelector(".start-popup").style.display = "block";
-  // playAgainBtn.style.visibility = "hidden";
   boardMap.classList.toggle("preventClick");
   startBtn.style.visibility = "visible";
   startBtn.disabled = false;
-  // sound.play();
 });
 startBtn.addEventListener("click", function () {
   document.querySelector(".start-popup").style.display = "none";
-  // playAgainBtn.style.visibility = "visible";
   boardMap.classList.toggle("preventClick");
   sound.play();
 });
@@ -63,14 +60,11 @@ initialize();
 
 function initialize() {
   boardMap.innerHTML = "";
-  // messageEl.innerText = "";
   randomizeCards(cardLookup);
-  sound = new Audio("./images/correctsound.mp3");
-  sound.play();
+  sound = new Audio("./sounds/correctsound.mp3");
   clickCount = 1;
   livesRemaining = 10;
   matchTracker = 0;
-  // playAgainBtn.disabled = true;
   livesCount.innerText = livesRemaining;
   render();
 }
@@ -124,7 +118,7 @@ function render() {
         }, 2000);
         secondCard = e.currentTarget;
         console.log(secondClick);
-        if (firstClick == secondClick) {
+        if (firstClick == secondClick && firstCard !== secondCard) {
           secondCard.classList.toggle("unflipCard");
           firstCard.classList.toggle("unflipCard");
           secondCard.classList.toggle("preventClick");
@@ -132,11 +126,8 @@ function render() {
 
           trackMatch();
           if (matchTracker == 8) {
-            messageEl.innerText = "You're a genius!";
-            // playAgainBtn.disabled = false;
-
             document.querySelector(".win-popup").style.display = "block";
-            sound = new Audio("./images/pop.mp3");
+            sound = new Audio("./sounds/pop.mp3");
             sound.play();
             playAgainBtnWin.addEventListener("click", function () {
               document.querySelector(".win-popup").style.display = "none";
@@ -171,7 +162,7 @@ function minusOne() {
     playAgainBtnLose.disabled = false;
 
     document.querySelector(".lose-popup").style.display = "block";
-    sound = new Audio("./images/pop.mp3");
+    sound = new Audio("./sounds/pop.mp3");
     sound.play();
     playAgainBtnLose.addEventListener("click", function () {
       document.querySelector(".lose-popup").style.display = "none";
