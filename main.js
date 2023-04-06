@@ -35,21 +35,26 @@ let matchTracker;
 let sound;
 
 /*----- cached elements  -----*/
-const playAgainBtn = document.querySelector("button");
+const playAgainBtnLose = document.querySelector(".play-again-l");
+const playAgainBtnWin = document.querySelector(".play-again-w");
 const boardMap = document.querySelector("section");
 const messageEl = document.querySelector(".try-again");
 const livesCount = document.querySelector("span");
 const startBtn = document.querySelector("#start");
 /*----- event listeners -----*/
-playAgainBtn.addEventListener("click", initialize);
+// playAgainBtn.addEventListener("click", initialize);
+
 window.addEventListener("load", function () {
   document.querySelector(".start-popup").style.display = "block";
-  playAgainBtn.style.visibility = "hidden";
+  // playAgainBtn.style.visibility = "hidden";
   boardMap.classList.toggle("preventClick");
+  startBtn.style.visibility = "visible";
+  startBtn.disabled = false;
+  // sound.play();
 });
 startBtn.addEventListener("click", function () {
   document.querySelector(".start-popup").style.display = "none";
-  playAgainBtn.style.visibility = "visible";
+  // playAgainBtn.style.visibility = "visible";
   boardMap.classList.toggle("preventClick");
   sound.play();
 });
@@ -58,14 +63,14 @@ initialize();
 
 function initialize() {
   boardMap.innerHTML = "";
-  messageEl.innerText = "";
+  // messageEl.innerText = "";
   randomizeCards(cardLookup);
   sound = new Audio("./images/correctsound.mp3");
   sound.play();
   clickCount = 1;
   livesRemaining = 10;
   matchTracker = 0;
-  playAgainBtn.disabled = true;
+  // playAgainBtn.disabled = true;
   livesCount.innerText = livesRemaining;
   render();
 }
@@ -86,7 +91,7 @@ function render() {
     front.setAttribute("height", "150px");
     front.setAttribute("class", "front");
     cards.setAttribute("class", "cards");
-    // sound.play();
+    sound.play();
     cards.classList.toggle("flipCard");
     setTimeout(() => {
       cards.classList.toggle("flipCard");
@@ -128,9 +133,17 @@ function render() {
           trackMatch();
           if (matchTracker == 8) {
             messageEl.innerText = "You're a genius!";
-            playAgainBtn.disabled = false;
-          }
+            // playAgainBtn.disabled = false;
 
+            document.querySelector(".win-popup").style.display = "block";
+            sound = new Audio("./images/pop.mp3");
+            sound.play();
+            playAgainBtnWin.addEventListener("click", function () {
+              document.querySelector(".win-popup").style.display = "none";
+              playAgainBtnWin.style.visibility = "visible";
+              initialize();
+            });
+          }
           console.log(matchTracker);
           console.log("matched");
           clickCount = 1;
@@ -155,18 +168,16 @@ function minusOne() {
     livesCount.innerText = livesRemaining;
   }
   if (livesRemaining === 0) {
-    playAgainBtn.disabled = false;
-    messageEl.innerText = "Try again next time";
+    playAgainBtnLose.disabled = false;
 
-    // document.querySelector(".start-popup").style.display = "block";
-    // playAgainBtn.style.visibility = "hidden";
-    // boardMap.classList.toggle("preventClick");
-
-    // startBtn.addEventListener("click", function () {
-    //   document.querySelector(".start-popup").style.display = "none";
-    //   playAgainBtn.style.visibility = "visible";
-    //   boardMap.classList.toggle("preventClick");
-    // });
+    document.querySelector(".lose-popup").style.display = "block";
+    sound = new Audio("./images/pop.mp3");
+    sound.play();
+    playAgainBtnLose.addEventListener("click", function () {
+      document.querySelector(".lose-popup").style.display = "none";
+      playAgainBtnLose.style.visibility = "visible";
+      initialize();
+    });
   }
   return;
 }

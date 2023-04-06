@@ -13,7 +13,9 @@
   box-sizing: border-box;
 }
 
-.start-popup {
+.start-popup,
+.lose-popup,
+.win-popup {
   background-color: #ffffff;
   width: 420px;
   padding: 30px 40px;
@@ -22,9 +24,10 @@
   left: 50%;
   top: 50%;
   border-radius: 8px;
-  /* display: none; */
+  display: none;
   font-family: sans-serif;
   text-align: center;
+  box-shadow: gray 0px 5px 15px;
 }
 
 .start-popup h2,
@@ -32,7 +35,9 @@
   margin: 10px;
 }
 
-.start-popup button {
+#start,
+.play-again-w,
+.play-again-l {
   display: center;
   margin: 10px;
   background-color: transparent;
@@ -45,6 +50,19 @@
   border: none;
   outline: none;
   cursor: pointer;
+}
+
+.play-again-w,
+.play-again-l {
+  width: 100px;
+}
+
+#start:hover,
+.play-again-l:hover,
+.play-again-w:hover {
+  background-color: rgb(165, 130, 103);
+  opacity: 10;
+  box-shadow: gray 0px 2px 1px;
 }
 
 body {
@@ -60,7 +78,7 @@ body {
 
 h1,
 h2 {
-  margin: 0.8vmin;
+  margin: 1vmin;
 }
 img {
   border-radius: 1vmin;
@@ -70,15 +88,16 @@ section {
   display: grid;
   grid-template-columns: repeat(4, 15vmin);
   grid-template-rows: repeat(4, 20vmin);
-  perspective: 800px;
+  justify-items: center;
 }
 
 .cards {
   position: relative;
   height: 150px;
   width: 106px;
+  perspective: 1500px;
   transform-style: preserve-3d;
-  transition: all 2s ease;
+  transition: all 2s cubic-bezier(0.16, 0.885, 0.32, 1.275);
   /* transform: rotateY(180deg); */
 }
 .front,
@@ -86,6 +105,7 @@ section {
   position: absolute;
   width: 106px;
   border: solid gray 2px;
+  box-shadow: gray 0px 5px 15px;
 }
 
 .back {
@@ -95,7 +115,7 @@ section {
 
 .back:hover {
   border: solid white 5px;
-  opacity: 0.96;
+  opacity: 0.5;
 }
 
 .front {
