@@ -37,8 +37,8 @@ JavaScript, CSS, HTML
 
 ## Game Board
 
-<img src="./images/readme_images/open page.png"> 
-<img src="./images/readme_images/winner popup.png">
+<img src="./images/readme_images/open page.png" width="500px"> 
+<img src="./images/readme_images/winner popup.png" width="500px">
 
 ## Next Steps
 
