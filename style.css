@@ -1,15 +1,6 @@
-/* @import url("https://fonts.cdnfonts.com/css/sunday-funday"); */
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-}
-
-*,
-*:before,
-*:after {
-  padding: 0;
-  margin: 0;
   box-sizing: border-box;
 }
 
@@ -39,7 +30,7 @@
 .play-again-w,
 .play-again-l {
   display: center;
-  margin: 10px;
+  margin: 8px;
   background-color: transparent;
   font-size: 14px;
   color: #ffffff;
@@ -65,6 +56,15 @@
   box-shadow: gray 0px 2px 1px;
 }
 
+#lose {
+  margin: 10px;
+}
+
+#win {
+  display: block;
+  margin: 15px auto;
+}
+
 body {
   height: 100vh;
   display: flex;
@@ -80,6 +80,7 @@ h1,
 h2 {
   margin: 1vmin;
 }
+
 img {
   border-radius: 1vmin;
 }
@@ -98,8 +99,8 @@ section {
   perspective: 1500px;
   transform-style: preserve-3d;
   transition: all 2s cubic-bezier(0.16, 0.885, 0.32, 1.275);
-  /* transform: rotateY(180deg); */
 }
+
 .front,
 .back {
   position: absolute;
@@ -115,7 +116,7 @@ section {
 
 .back:hover {
   border: solid white 5px;
-  opacity: 0.5;
+  opacity: 0.95;
 }
 
 .front {

@@ -153,6 +153,7 @@ function randomizeCards(arr) {
   return arr.sort(() => 0.5 - Math.random());
 }
 // found from https://www.webmound.com/shuffle-javascript-array/
+
 function minusOne() {
   if (livesRemaining >= 1) {
     livesRemaining--;
