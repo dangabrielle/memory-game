@@ -37,8 +37,8 @@ JavaScript, CSS, HTML
 
 ## Game Board
 
-<img src="./images/readme_images/open page.png" width="300px" height="300px"> <img src="./images/readme_images/flipcards.png" height="300px" width="300px">
-<img src="./images/readme_images/lose.png" height="300px" width="300px"> <img src="./images/readme_images/winner popup.png" width="300px" height="300px">
+<img src="./images/readme_images/open page.png"> 
+<img src="./images/readme_images/winner popup.png">
 
 ## Next Steps
 
