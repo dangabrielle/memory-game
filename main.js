@@ -38,23 +38,24 @@ let sound;
 const playAgainBtnLose = document.querySelector(".play-again-l");
 const playAgainBtnWin = document.querySelector(".play-again-w");
 const boardMap = document.querySelector("section");
-const messageEl = document.querySelector(".try-again");
 const livesCount = document.querySelector("span");
 const startBtn = document.querySelector("#start");
+
 /*----- event listeners -----*/
-// playAgainBtn.addEventListener("click", initialize);
 
 window.addEventListener("load", function () {
   document.querySelector(".start-popup").style.display = "block";
   boardMap.classList.toggle("preventClick");
   startBtn.style.visibility = "visible";
-  startBtn.disabled = false;
+  // startBtn.disabled = false;
 });
+
 startBtn.addEventListener("click", function () {
   document.querySelector(".start-popup").style.display = "none";
   boardMap.classList.toggle("preventClick");
   sound.play();
 });
+
 /*----- functions -----*/
 initialize();
 
@@ -91,12 +92,9 @@ function render() {
       cards.classList.toggle("flipCard");
     }, 20);
 
-    // flip cards
     cards.addEventListener("click", handleClick);
-    function handleClick(e) {
-      console.log(clickCount);
-      console.log(e.target.tagName);
 
+    function handleClick(e) {
       if (livesRemaining === 0 || matchTracker == 8) {
         return;
       }
@@ -104,7 +102,6 @@ function render() {
       if (clickCount === 1) {
         cards.classList.toggle("flipCard");
         firstClick = e.target.getAttribute("name");
-        console.log(firstClick);
         setTimeout(() => {
           cards.classList.toggle("flipCard");
         }, 2000);
@@ -117,7 +114,7 @@ function render() {
           cards.classList.toggle("flipCard");
         }, 2000);
         secondCard = e.currentTarget;
-        console.log(secondClick);
+
         if (firstClick == secondClick && firstCard !== secondCard) {
           secondCard.classList.toggle("unflipCard");
           firstCard.classList.toggle("unflipCard");
@@ -125,6 +122,7 @@ function render() {
           firstCard.classList.toggle("preventClick");
 
           trackMatch();
+
           if (matchTracker == 8) {
             document.querySelector(".win-popup").style.display = "block";
             sound = new Audio("./sounds/pop.mp3");
@@ -135,14 +133,10 @@ function render() {
               initialize();
             });
           }
-          console.log(matchTracker);
-          console.log("matched");
           clickCount = 1;
         } else {
           clickCount = 1;
-          console.log("not matched");
           minusOne();
-          console.log(livesRemaining);
         }
       }
     }
@@ -152,7 +146,6 @@ function render() {
 function randomizeCards(arr) {
   return arr.sort(() => 0.5 - Math.random());
 }
-// found from https://www.webmound.com/shuffle-javascript-array/
 
 function minusOne() {
   if (livesRemaining >= 1) {
@@ -161,7 +154,6 @@ function minusOne() {
   }
   if (livesRemaining === 0) {
     playAgainBtnLose.disabled = false;
-
     document.querySelector(".lose-popup").style.display = "block";
     sound = new Audio("./sounds/pop.mp3");
     sound.play();

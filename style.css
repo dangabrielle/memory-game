@@ -52,7 +52,6 @@
 .play-again-l:hover,
 .play-again-w:hover {
   background-color: rgb(165, 130, 103);
-  opacity: 10;
   box-shadow: gray 0px 2px 1px;
 }
 
