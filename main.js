@@ -47,7 +47,6 @@ window.addEventListener("load", function () {
   document.querySelector(".start-popup").style.display = "block";
   boardMap.classList.toggle("preventClick");
   startBtn.style.visibility = "visible";
-  // startBtn.disabled = false;
 });
 
 startBtn.addEventListener("click", function () {
