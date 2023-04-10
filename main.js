@@ -42,7 +42,6 @@ const livesCount = document.querySelector("span");
 const startBtn = document.querySelector("#start");
 
 /*----- event listeners -----*/
-
 window.addEventListener("load", function () {
   document.querySelector(".start-popup").style.display = "block";
   boardMap.classList.toggle("preventClick");

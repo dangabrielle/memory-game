@@ -51,7 +51,7 @@ JavaScript, CSS, HTML
 ## Acknowledgments
 
 <ul>
-  <li> <a href="https://www.webmound.com/shuffle-javascript-array/">Stack Overflow Shuffle Function</a>
+  <li> <a href="https://www.webmound.com/shuffle-javascript-array/">Shuffle Function</a>
   <li> <a href="https://www.w3schools.com/cssref/func_cubic-bezier.php">Flip Card Transition</a>
   <li> <a href="https://unsplash.com/">Card Images</a>
 </ul>
